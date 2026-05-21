@@ -9,6 +9,8 @@ for /f "delims=" %%A in ('powershell -Command  ^
     "Write-Output $Plain"
     ') do set "access_key=%%A"
 
+set access_key=%access_key:"=%
+
 echo %access_key% | find "=" > nul
 if %errorlevel% equ 0 (
     for /f "tokens=2 delims==" %%a in ("%access_key%") do set aws_access_key=%%a
@@ -24,6 +26,8 @@ for /f "delims=" %%A in ('powershell -Command  ^
     "Write-Output $Plain"
     ') do set "secret_key=%%A"
 
+set secret_key=%secret_key:"=%
+
 echo %secret_key% | find "=" > nul
 if %errorlevel% equ 0 (
     for /f "tokens=2 delims==" %%a in ("%secret_key%") do set aws_secret_key=%%a
@@ -38,6 +42,8 @@ for /f "delims=" %%A in ('powershell -Command  ^
     "$Plain = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR); "^
     "Write-Output $Plain"
     ') do set "session_token=%%A"
+
+set session_token=%session_token:"=%
 
 echo %session_token% | find "=" > nul
 if %errorlevel% equ 0 (
